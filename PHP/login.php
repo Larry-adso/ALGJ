@@ -49,8 +49,8 @@
                 </div>
             </div>
             <p class="cuenta-gratis">¿Aun no tienes una cuenta?</p>
-            <input type="email" placeholder="Correo Electronico" name="correo">
-            <input type="password" placeholder="contraseña" id="password" name="contrasena">
+            <input type="Numb" placeholder="Correo Electronico" name="ID">
+            <input type="password" placeholder="contraseña" id="password" name="password">
             <button class="b_estilo">iniciar sesion</button>
         </form>
         <div class="welcome-back">

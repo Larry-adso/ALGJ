@@ -5,6 +5,8 @@ if ($_POST) {
   $ID = isset($_POST["ID"]) ? $_POST["ID"] : "";
   $ID_puesto = isset($_POST["ID_puesto"]) ? $_POST["ID_puesto"] : "";
   $ID_Roll = isset($_POST["ID_Roll"]) ? $_POST["ID_Roll"] : "";
+  $Password = isset($_POST["Password"]) ? $_POST["Password"] : "";
+
 
   // Verificar si el ID ya existe en la base de datos
   $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE ID = :id");
@@ -17,10 +19,12 @@ if ($_POST) {
     echo '<script>alert("El ID ya está en uso. No se puede crear el registro.");</script>';
   } else {
     // Si el ID no existe, proceder con la inserción
-    $sentencia = $conexion->prepare("INSERT INTO usuarios(ID, ID_Roll, ID_puesto) VALUES (:ID, :ID_Roll, :ID_puesto)");
+    $sentencia = $conexion->prepare("INSERT INTO usuarios(ID, ID_Roll, ID_puesto, Password) VALUES (:ID, :ID_Roll, :ID_puesto , :Password)");
     $sentencia->bindParam(":ID", $ID);
     $sentencia->bindParam(":ID_Roll", $ID_Roll);
     $sentencia->bindParam(":ID_puesto", $ID_puesto);
+    $sentencia->bindParam(":Password", $Password);
+
 
     if ($sentencia->execute()) {
       $mensaje = "Registro creado correctamente";
@@ -58,6 +62,8 @@ $consultapuesto->execute();
       </span>
     </p>
     <input type="number" class="login-username" autofocus="true" name="ID" required="true" placeholder="Documento" />
+    <input type="Password" class="login-username" autofocus="true" name="Password" required="true" placeholder="pasword" />
+
 
     <label for="cargo">Cargo:</label>
     <select class="login-username" name="ID_puesto" id="ID_puesto" required>

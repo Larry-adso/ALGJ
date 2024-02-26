@@ -117,7 +117,7 @@
                     <p><?php echo $mensaje; ?></p>
                 <?php endif; ?>
 
-                <a name="" id="" class="btn btn-primary d-block mx-auto" href="../admin.php" role="button">Inicio</a>
+                <a name="" id="" class="btn btn-danger" href="../desarrollador.php" role="button">Inicio</a>
             </div>
 
             <!-- Bootstrap JavaScript Libraries -->

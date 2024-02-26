@@ -118,7 +118,7 @@ $Tp_licencia = $consultaLicencia->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <button type="submit" class="submitBtn">aqui</button>
-                <a name="" id="" class="btn btn-danger" href="../admin.php" role="button">Inicio</a>
+                <a name="" id="" class="btn btn-danger" href="../desarrollador.php" role="button">Inicio</a>
 
 
             </form>
