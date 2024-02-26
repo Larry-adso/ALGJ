@@ -48,13 +48,13 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="PHP/Register_empresa.php">Registro Empresa</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="PHP/serial.php">Sereales</a>
+                        <a class="nav-link" href="PHP/serial.php">Seriales</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="PHP/login.php">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="PHP/registro_empleado.php">Empleados / prueba </a>
+                        <a class="nav-link" href="PHP/registro_empleado.php">prueba </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Menu 6</a>
@@ -98,6 +98,9 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
                     <td><?php echo $info['Serial']; ?></td>
                     <td><?php echo $info['Estado']; ?></td>
                     <td><?php echo $info['Tipo_Licencia']; ?></td>
+                    <td>
+                        <a name="" id="" class="btn btn-secondary" href="#" role="button">editar</a>
+                    </td>
                 </tr>
             <?php } ?>
 
