@@ -118,16 +118,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="" method="post">
         <h2>Recuperar Contraseña</h2>
         <label for="ID">Documento:</label>
-        <input type="text" name="ID" required>
+        <input type="text" name="ID" pattern="[0-9]{10}" maxlength="10" required>
 
         <label for="correo">Correo:</label>
         <input type="email" name="Correo" required>
 
         <label for="telefono">Teléfono:</label>
-        <input type="text" name="Telefono" required>
+        <input type="text" pattern="[0-9]{10}" maxlength="10" name="Telefono" required>
 
         <label for="codigo">Código de recuperación:</label>
-        <input type="text" name="Codigo" required>
+        <input type="text" pattern="[0-9]{10}" maxlength="4" name="Codigo" required>
 
         <button type="submit" class="btn-success">Enviar</button>
         <a href="metodos.php" class="btn-danger">Volver Atrás</a>

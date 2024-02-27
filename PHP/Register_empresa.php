@@ -80,12 +80,12 @@ $Tp_licencia = $consultaLicencia->fetchAll(PDO::FETCH_ASSOC);
                 <h1 class="title">Registro De Empresa</h1>
 
                 <div class="inputContainer">
-                    <input type="text" name="NIT" class="input" placeholder="a">
+                    <input type="text" name="NIT" pattern="[0-9]{10}" maxlength="10" class="input" placeholder="a" required>
                     <label for="" class="label">NIT</label>
                 </div>
 
                 <div class="inputContainer">
-                    <input type="text" name="Nombre" class="input" placeholder="a">
+                    <input type="text" name="Nombre" class="input" placeholder="a" require>
                     <label for="" class="label">Nombre</label>
                 </div>
 
@@ -103,17 +103,17 @@ $Tp_licencia = $consultaLicencia->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <div class="inputContainer">
-                    <input type="text" name="Correo" class="input" placeholder="a">
+                    <input type="text" name="Correo" class="input" placeholder="a" require>
                     <label for="" class="label">Correo</label>
                 </div>
 
                 <div class="inputContainer">
-                    <input type="text" name="Telefono" class="input" placeholder="a">
+                    <input type="text" name="Telefono" pattern="[0-9]{10}" maxlength="10" class="input" placeholder="a" require>
                     <label for="" class="label">Telefono</label>
                 </div>
 
                 <div class="inputContainer">
-                    <input type="text" name="password" class="input" placeholder="a">
+                    <input type="text" name="password" class="input" placeholder="a" require>
                     <label for="" class="label">Password</label>
                 </div>
 

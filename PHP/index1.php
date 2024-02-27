@@ -16,7 +16,12 @@
         <!-- place navbar here -->
     </header>
     <main>
-
+        <div class="">
+            <h2>welcome</h2>
+            <p> usuario : <?php
+                            session_start();
+                            echo $_SESSION["ID"]; ?></p>
+        </div>
 
         <h1>hola mundao 1 </h1>
     </main>

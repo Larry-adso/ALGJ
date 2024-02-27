@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="" method="post">
         <h2>Recuperar Contraseña</h2>
         <label for="ID">Documento:</label>
-        <input type="text" name="ID" required>
+        <input type="text" name="ID" pattern="[0-9]{10}" maxlength="10" required>
 
         <label for="password">password:</label>
         <input type="password" name="password" required>

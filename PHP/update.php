@@ -20,6 +20,8 @@ $id_usuario = $_SESSION['ID'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener la nueva contraseña del formulario
     $password = (isset($_POST["password"]) ? $_POST["password"] : "");
+    $password = hash('sha512', $password);
+
 
     // Preparar la consulta SQL
     $consulta = $conexion->prepare("UPDATE usuarios SET password = :password WHERE ID = :id_usuario");

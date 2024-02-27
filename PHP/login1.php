@@ -18,6 +18,8 @@ try {
                 // Escapar los valores para evitar inyección SQL
                 $ID = $_POST["ID"];
                 $password = $_POST["password"];
+                //$password = hash('sha512', $password);
+
 
                 // Consulta SQL para obtener el tipo de usuario
                 $sql = "SELECT ID_Roll FROM usuarios WHERE ID = :ID AND password = :password";
@@ -39,7 +41,7 @@ try {
                     // Redireccionar según el tipo de usuario
                     switch ($ID_Roll) {
                         case 1:
-                            header("Location: update.php");
+                            header("Location: index1.php");
                             exit();
                         case 2:
                             header("Location: index2.php");
