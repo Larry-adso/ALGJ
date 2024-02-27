@@ -41,14 +41,26 @@
             </div>
             <p class="cuenta-gratis">¿Aun no tienes una cuenta?</p>
             <input type="Numb" placeholder="Correo Electronico" name="ID">
-            <input type="password" placeholder="contraseña" id="password" name="password">
-            <button class="b_estilo">iniciar sesion</button>
+            <input type="password" placeholder="Contraseña" id="password" name="password">
+            <input class="form-check-input" onclick="togglePasswordVisibility()" name="" id="" type="checkbox" value="checkedValue" aria-label="Text for screen reader" />
+
+            <script>
+                function togglePasswordVisibility() {
+                    var passwordInput = document.getElementById("password");
+                    if (passwordInput.type === "password") {
+                        passwordInput.type = "text";
+                    } else {
+                        passwordInput.type = "password";
+                    }
+                }
+            </script> <button class="b_estilo">iniciar sesion</button>
+            <a class="b_estilo" href="metodos.php">Olvide mi contraseña</a>
+
         </form>
         <div class="welcome-back">
             <div class="message">
                 <h2>Bienvenido de nuevo</h2>
-                <p>Si aun no tienes una cuenta por favor registrese aqui</p>
-                <button class="sign-in-btn">Registrarse</button>
+                <p>"Si necesitas asistencia para acceder a tu cuenta o tienes <br> cualquier otro problema relacionado con el inicio de sesión, por favor comunícate con tu administrador."</p>
             </div>
         </div>
     </div>
