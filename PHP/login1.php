@@ -31,10 +31,15 @@ try {
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     $ID_Roll = $row["ID_Roll"];
 
+                    // Iniciar sesión y guardar el ID de usuario y el tipo de usuario en variables de sesión
+                    session_start();
+                    $_SESSION["ID"] = $ID;
+                    $_SESSION["ID_Roll"] = $ID_Roll;
+
                     // Redireccionar según el tipo de usuario
                     switch ($ID_Roll) {
                         case 1:
-                            header("Location: index1.php");
+                            header("Location: update.php");
                             exit();
                         case 2:
                             header("Location: index2.php");
@@ -44,7 +49,7 @@ try {
                             exit();
                         default:
                             // Manejar el caso en que el tipo de usuario no está definido
-                            echo '<script>alert("ID o contraseña incorrectos56.");</script>';
+                            echo '<script>alert("ID o contraseña incorrectos.");</script>';
                             exit();
                     }
                 } else {

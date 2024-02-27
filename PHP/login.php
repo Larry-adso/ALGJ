@@ -23,16 +23,7 @@
                 <button class="sign-up-btn">Iniciar Sesion</button>
             </div>
         </div>
-        <form action="registro.php" method="POST" class="formulario">
-            <h2 class="create-account">Crear una cuenta</h2>
-            <input type="number" placeholder="Cedula" name="ID">
-            <input type="text" placeholder="nombre completo" name="Nombre">
-            <input type="text" placeholder="Apellido" name="Apellido">
-            <input type="text" placeholder="Correo" name="Correo">
-            <input type="number" placeholder="Telefono" name="Telefono">
-            <input type="password" placeholder="contraseña" name="Password">
-            <button class="b_estilo">registrarse</button>
-        </form>
+
     </div>
     <div class="container-form sign-in">
         <form class="formulario" action="login1.php" method="POST">

@@ -57,7 +57,7 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
                         <a class="nav-link" href="PHP/registro_empleado.php">prueba </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Menu 6</a>
+                        <a class="nav-link" href="PHP/update.php">update</a>
                     </li>
                 </ul>
             </div>
