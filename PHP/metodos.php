@@ -76,7 +76,7 @@
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">Recuperación por correo electrónico</h5>
-                <a href="#" class="btn btn-primary">Recuperar</a>
+                <a href="correo.php" class="btn btn-primary">Recuperar</a>
             </div>
         </div>
         <a name="" id="" class="btn btn-primary" href="login.php" role="button">volver</a>
