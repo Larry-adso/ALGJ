@@ -38,9 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (mail($Correo, $titulo, $msj, $tucorreo)) {
 
-            echo "<script>
-            alert('Su contraseña fue enviada a: $Correo. Gracias por usar el sistema de recuperación.');
-          </script>";
+            echo '<script>
+            alert("Su contraseña fue enviada a: ' . $Correo . '. Gracias por usar el sistema de recuperación.");
+            window.location = "login.php";
+          </script>';
         } else {
             echo "Error al enviar el correo.";
         }

@@ -24,10 +24,15 @@ FROM empresas
 INNER JOIN licencia ON empresas.ID_Licencia = licencia.ID
 INNER JOIN tp_licencia ON licencia.TP_licencia = tp_licencia.ID
 INNER JOIN estado ON licencia.ID_Estado = estado.ID;
-
 ");
 $consulta->execute();
 $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+$consultaUsuario = $conexion->prepare("SELECT nombre FROM usuarios WHERE id = :id");
+$consultaUsuario->bindParam(':id', $_SESSION['ID']);
+$consultaUsuario->execute();
+$usuario = $consultaUsuario->fetch(PDO::FETCH_ASSOC);
+$nombreUsuario = $usuario['nombre'];
 
 ?>
 <!DOCTYPE html>
@@ -82,11 +87,15 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
     <div class="menu__side" id="menu_side">
 
         <div class="name__page">
-            <i class="fab fa-youtube"></i>
-            <h4>developer </h4>
-        </div>
+            <i class="far fa-solid fa-user"></i>
+            <h4>DEV </h4>
+            <p>: <?php echo $nombreUsuario; ?></p>
 
+
+        </div>
         <div class="options__menu">
+
+            <br><br>
 
             <a href="#" class="selected">
                 <div class="option">
@@ -98,21 +107,21 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
             <a href="PHP/Register_empresa.php">
                 <div class="option">
                     <i class="far fa-file" title="Crear empresa"></i>
-                    <h4>crear empresa</h4>
+                    <h4>Crear Empresa</h4>
                 </div>
             </a>
 
             <a href="PHP/serial.php">
                 <div class="option">
-                    <i class="fas fa-solid fa-arrows-to-eye" title="seriales "></i>
-                    <h4>Gestionar seriales</h4>
+                    <i class="fas fa-solid fa-key" title="seriales "></i>
+                    <h4> Seriales</h4>
                 </div>
             </a>
 
-            <a href="PHP/login.php">
+            <a href="PHP/developer/register.php">
                 <div class="option">
                     <i class="far fa-regular fa-user" title="Login"></i>
-                    <h4>Login</h4>
+                    <h4>Registrar Dev</h4>
                 </div>
             </a>
 
@@ -165,7 +174,7 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
                             <td><?php echo $info['Estado']; ?></td>
                             <td><?php echo $info['Tipo_Licencia']; ?></td>
                             <td>
-                                <a name="" id="" class="btn btn-secondary" href="#" role="button">editar</a>
+                                <a name="" id="" class="btn " href="#" role="button">editar</a>
                             </td>
                         </tr>
                     <?php } ?>
