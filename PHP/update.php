@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <button type="submit" class="btn btn-success">Actualizar Contraseña</button>
                 </form>
             </div>
-            <a name="" id="" class="btn btn-primary" href="cerrar.php" role="button">call_user_func_array</a>
+            <a name="" id="" class="btn btn-primary" href="cerrar.php" role="button">cerrar</a>
 
         </div>
     </main>

@@ -61,6 +61,7 @@
             <div class="message">
                 <h2>Bienvenido de nuevo</h2>
                 <p>"Si necesitas asistencia para acceder a tu cuenta o tienes <br> cualquier otro problema relacionado con el inicio de sesión, por favor comunícate con tu administrador."</p>
+
             </div>
         </div>
     </div>
