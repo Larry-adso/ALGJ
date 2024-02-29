@@ -49,6 +49,9 @@ try {
                         case 3:
                             header("Location: index3.php");
                             exit();
+                        case 4:
+                            header("Location: ../index.php");
+                            exit();
                         default:
                             // Manejar el caso en que el tipo de usuario no está definido
                             echo '<script>alert("ID o contraseña incorrectos.");</script>';

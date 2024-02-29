@@ -15,6 +15,7 @@ try {
     echo "Error de conexión a la base de datos: " . $e->getMessage();
 }
 
+
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

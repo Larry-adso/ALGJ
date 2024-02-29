@@ -1,6 +1,18 @@
         <?php
         include "../conexion/conexion.php";
 
+        session_start();
+        if (!isset($_SESSION['ID'])) {
+            echo '
+ <script>
+        alert("Por favor inicie sesión e intente nuevamente");
+        window.location = "PHP/login.php";
+    </script>
+    ';
+            session_destroy();
+            die();
+        }
+
         function generarClave($longitud)
         {
             $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

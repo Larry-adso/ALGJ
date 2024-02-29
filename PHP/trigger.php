@@ -1,7 +1,6 @@
 <?php
-session_start(); // Start the session
-
 include "../conexion/db.php";
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ID = $_POST["ID"];

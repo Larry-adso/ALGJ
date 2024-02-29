@@ -1,4 +1,17 @@
 <?php
+
+session_start();
+if (!isset($_SESSION['ID'])) {
+    echo '
+ <script>
+        alert("Por favor inicie sesión e intente nuevamente");
+        window.location = "PHP/login.php";
+    </script>
+    ';
+    session_destroy();
+    die();
+}
+
 include "conexion/db.php";
 $consulta = $conexion->prepare("SELECT empresas.NIT, 
 empresas.Nombre,
@@ -24,7 +37,7 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú lateral responsive - MagtimusPro</title>
+    <title>Menu desarrollador</title>
 
     <link rel="stylesheet" href="nav/css/estilos.css">
 
@@ -62,6 +75,7 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
     <header>
         <div class="icon__menu">
             <i class="fas fa-bars" id="btn_open"></i>
+
         </div>
     </header>
 
@@ -69,7 +83,7 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="name__page">
             <i class="fab fa-youtube"></i>
-            <h4>MagtimusPro</h4>
+            <h4>developer </h4>
         </div>
 
         <div class="options__menu">
@@ -77,7 +91,7 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
             <a href="#" class="selected">
                 <div class="option">
                     <i class="fas fa-home" title="Inicio"></i>
-                    <h4>copia de base de datos</h4>
+                    <h4>Inicio</h4>
                 </div>
             </a>
 
@@ -115,7 +129,12 @@ $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
                     <h4>Nosotros</h4>
                 </div>
             </a>
-
+            <a href="PHP/cerrar.php">
+                <div class="option">
+                    <i class="far fa-solid fa-share-from-square" title="Nosotros"></i>
+                    <h4>Cerrar session</h4>
+                </div>
+            </a>
         </div>
 
     </div>
