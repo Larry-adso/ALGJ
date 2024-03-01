@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "n_algj";
+$dbname = "abprueba";
 
 try {
     $conexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -16,27 +16,51 @@ try {
 }
 
 session_start();
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $NIT = $_POST["NIT"];
     $Serial = $_POST["Serial"];
 
-    $consulta = $conexion->prepare("SELECT * FROM empresas e INNER JOIN licencia l ON e.ID_Licencia = l.ID WHERE e.NIT = :NIT AND l.Serial = :Serial AND l.ID_Estado != 1");
-    $consulta->bindParam(":NIT", $NIT);
-    $consulta->bindParam(":Serial", $Serial);
-    $consulta->execute();
+    try {
+        $consulta = $conexion->prepare("SELECT e.NIT, l.TP_licencia, l.Serial FROM empresas e INNER JOIN licencia l ON e.ID_Licencia = l.ID WHERE e.NIT = :NIT AND l.Serial = :Serial AND l.ID_Estado = 2;");
+        $consulta->bindParam(":NIT", $NIT);
+        $consulta->bindParam(":Serial", $Serial);
+        $consulta->execute();
 
-    $row = $consulta->fetch(PDO::FETCH_ASSOC);
+        $row = $consulta->fetch(PDO::FETCH_ASSOC);
 
-    if ($row) {
-        // Actualizar el estado de la licencia a activo (ID_Estado = 1)
-        $updateLicencia = $conexion->prepare("UPDATE licencia SET ID_Estado = 1 WHERE Serial = :Serial");
-        $updateLicencia->bindParam(":Serial", $Serial);
-        $updateLicencia->execute();
+        if ($row) {
+            // Actualizar el estado de la licencia a activo (ID_Estado = 1)
+            $updateLicencia = $conexion->prepare("UPDATE licencia SET ID_Estado = 1 WHERE Serial = :Serial");
+            $updateLicencia->bindParam(":Serial", $Serial);
+            $updateLicencia->execute();
 
-        echo '<script>alert("El estado de la licencia se ha actualizado correctamente.");</script>';
-    } else {
-        echo '<script>alert("No se encontró ninguna empresa con el NIT y Serial proporcionados o la licencia ya está activa.");</script>';
+            // Obtener el tipo de licencia
+            $tipoLicencia = $row['TP_licencia'];
+
+            // Calcular la fecha de fin de la licencia según el tipo de licencia
+            $fechaInicio = date('Y-m-d H:i:s'); // Fecha actual
+            $fechaFin = date('Y-m-d H:i:s', strtotime('+1 year', strtotime($fechaInicio))); // Por defecto 1 año
+            if ($tipoLicencia == 1213) {
+                // Si es de tipo 1213 (6 meses)
+                $fechaFin = date('Y-m-d H:i:s', strtotime('+6 months', strtotime($fechaInicio)));
+            } elseif ($tipoLicencia == 1214) {
+                // Si es de tipo 1214 (1 año)
+                $fechaFin = date('Y-m-d H:i:s', strtotime('+1 year', strtotime($fechaInicio)));
+            }
+
+            // Actualizar el campo F_inicio y F_fin en la tabla licencia
+            $updateFechas = $conexion->prepare("UPDATE licencia SET F_inicio = :fechaInicio, F_fin = :fechaFin WHERE Serial = :Serial");
+            $updateFechas->bindParam(":Serial", $Serial);
+            $updateFechas->bindParam(":fechaInicio", $fechaInicio);
+            $updateFechas->bindParam(":fechaFin", $fechaFin);
+            $updateFechas->execute();
+
+            echo '<script>alert("El estado de la licencia se ha actualizado correctamente.");</script>';
+        } else {
+            echo '<script>alert("No se encontró ninguna empresa con el NIT y Serial proporcionados o la licencia ya está activa.");</script>';
+        }
+    } catch (PDOException $ex) {
+        echo "Error de consulta: " . $ex->getMessage();
     }
 }
 ?>
@@ -126,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Qb2e0lkoqg4qbslQU5gUy" crossorigin="anonymous"></script>
 </body>
 
 </html>

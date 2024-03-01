@@ -2,7 +2,7 @@
 include "../conexion/db.php";
 
 session_start();
-if (!isset($_SESSION['ID'])) {
+if (!isset($_SESSION['id_us'])) {
     echo '
  <script>
         alert("Por favor inicie sesión e intente nuevamente");
@@ -14,26 +14,42 @@ if (!isset($_SESSION['ID'])) {
 }
 
 // Obtener el ID del usuario actual
-$id_usuario = $_SESSION['ID'];
+$id_usuario = $_SESSION['id_us'];
 
 // Verificar si se envió el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtener la nueva contraseña del formulario
-    $password = (isset($_POST["password"]) ? $_POST["password"] : "");
-    $password = hash('sha512', $password);
-
+    $pass = isset($_POST["pass"]) ? $_POST["pass"] : "";
+    $pass_hashed = hash('sha512', $pass);
 
     // Preparar la consulta SQL
-    $consulta = $conexion->prepare("UPDATE usuarios SET password = :password WHERE ID = :id_usuario");
+    $consulta = $conexion->prepare("UPDATE usuarios SET pass = :pass WHERE id_us = :id_usuario");
 
     // Vincular los parámetros
-    $consulta->bindParam(':password', $password, PDO::PARAM_STR);
+    $consulta->bindParam(':pass', $pass_hashed, PDO::PARAM_STR);
     $consulta->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
 
     // Ejecutar la consulta
-    $consulta->execute();
+    if ($consulta->execute()) {
+        echo '
+            <script>
+                alert("Contraseña actualizada correctamente");
+                window.location = "login.php";
+            </script>
+        ';
+        exit();
+    } else {
+        echo '
+            <script>
+                alert("Error al actualizar la contraseña. Por favor, inténtelo de nuevo.");
+                window.location = "metodos.php";
+            </script>
+        ';
+        exit();
+    }
 }
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -58,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-6">
                 <div class="">
                     <h2>welcome</h2>
-                    <p> usuario : <?php echo $_SESSION["ID"]; ?></p>
+                    <p> usuario : <?php echo $_SESSION["id_us"]; ?></p>
                 </div>
             </div>
             <div class="card-body">
@@ -66,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="mb-3">
                         <label for="password" class="form-label">Ingrese su nueva contraseña:</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Ingrese su nueva contraseña" required />
+                        <input type="password" class="form-control" name="pass" id="password" placeholder="Ingrese su nueva contraseña" required />
                     </div>
                     <button type="submit" class="btn btn-success">Actualizar Contraseña</button>
                 </form>

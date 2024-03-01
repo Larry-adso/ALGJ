@@ -2,7 +2,7 @@
 include "../conexion/db.php";
 
 session_start();
-if (!isset($_SESSION['ID'])) {
+if (!isset($_SESSION['id_us'])) {
     echo '
  <script>
         alert("Por favor inicie sesión e intente nuevamente");

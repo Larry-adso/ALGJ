@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if (!isset($_SESSION['ID'])) {
+if (!isset($_SESSION['id_us'])) {
     echo '
  <script>
         alert("Por favor inicie sesión e intente nuevamente");
@@ -13,26 +13,28 @@ if (!isset($_SESSION['ID'])) {
 }
 
 include "conexion/db.php";
-$consulta = $conexion->prepare("SELECT empresas.NIT, 
+$consulta = $conexion->prepare("SELECT empresas.NIT,
 empresas.Nombre,
 empresas.ID_Licencia,
 empresas.Correo,
 licencia.Serial,
+licencia.F_inicio,
+licencia.F_fin,
 tp_licencia.Tipo AS Tipo_Licencia,
 estado.Estado
 FROM empresas
 INNER JOIN licencia ON empresas.ID_Licencia = licencia.ID
 INNER JOIN tp_licencia ON licencia.TP_licencia = tp_licencia.ID
-INNER JOIN estado ON licencia.ID_Estado = estado.ID;
+INNER JOIN estado ON licencia.ID_Estado = estado.ID_Es;
 ");
 $consulta->execute();
 $consulta_ = $consulta->fetchAll(PDO::FETCH_ASSOC);
 
-$consultaUsuario = $conexion->prepare("SELECT nombre FROM usuarios WHERE id = :id");
-$consultaUsuario->bindParam(':id', $_SESSION['ID']);
+$consultaUsuario = $conexion->prepare("SELECT nombre_us FROM usuarios WHERE id_us = :id_us");
+$consultaUsuario->bindParam(':id_us', $_SESSION['id_us']);
 $consultaUsuario->execute();
 $usuario = $consultaUsuario->fetch(PDO::FETCH_ASSOC);
-$nombreUsuario = $usuario['nombre'];
+$nombreUsuario = $usuario['nombre_us'];
 
 ?>
 <!DOCTYPE html>
@@ -149,7 +151,10 @@ $nombreUsuario = $usuario['nombre'];
     </div>
 
     <main>
+        <h4>Empresas que han adquirido el software</h4>
+
         <div class="table-responsive">
+
             <table class="table table-primary table-bordered">
                 <thead>
                     <tr>
@@ -159,6 +164,8 @@ $nombreUsuario = $usuario['nombre'];
                         <th scope="col">Correo</th>
                         <th scope="col">Seriales</th>
                         <th scope="col">Estado Licencia</th>
+                        <th scope="col">fecha inicio </th>
+                        <th scope="col">fecha fin </th>
                         <th scope="col">Tipo licenia </th>
                         <th scope="col">Ajustes</th>
                     </tr>
@@ -172,6 +179,9 @@ $nombreUsuario = $usuario['nombre'];
                             <td><?php echo $info['Correo']; ?></td>
                             <td><?php echo $info['Serial']; ?></td>
                             <td><?php echo $info['Estado']; ?></td>
+
+                            <td><?php echo $info['F_inicio']; ?></td>
+                            <td><?php echo $info['F_fin']; ?></td>
                             <td><?php echo $info['Tipo_Licencia']; ?></td>
                             <td>
                                 <a name="" id="" class="btn " href="#" role="button">editar</a>

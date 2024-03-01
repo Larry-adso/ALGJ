@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "n_algj";
+$dbname = "abprueba";
 
 try {
     $conexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -19,23 +19,23 @@ try {
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $ID = $_POST["ID"];
-    $Correo = $_POST["Correo"];
-    $Telefono = $_POST["Telefono"];
+    $id_us = $_POST["id_us"];
+    $correo_us = $_POST["correo_us"];
+    $tel_us = $_POST["tel_us"];
     $Codigo = $_POST["Codigo"];
 
     try {
-        $consulta = $conexion->prepare("SELECT * FROM usuarios WHERE ID = :ID AND Correo = :Correo AND Telefono = :Telefono AND Codigo = :Codigo");
-        $consulta->bindParam(":ID", $ID);
-        $consulta->bindParam(":Correo", $Correo);
-        $consulta->bindParam(":Telefono", $Telefono);
+        $consulta = $conexion->prepare("SELECT * FROM usuarios WHERE id_us = :id_us AND correo_us = :correo_us AND tel_us = :tel_us AND Codigo = :Codigo");
+        $consulta->bindParam(":id_us", $id_us);
+        $consulta->bindParam(":correo_us", $correo_us);
+        $consulta->bindParam(":tel_us", $tel_us);
         $consulta->bindParam(":Codigo", $Codigo);
 
         $consulta->execute();
 
         if ($consulta->rowCount() == 1) {
             // Inicio de sesión exitoso
-            $_SESSION["ID"] = $ID;
+            $_SESSION["id_us"] = $id_us;
             header("Location: update.php"); // Redirigir a la página de inicio exitoso
         } else {
             // Las credenciales son incorrectas
@@ -119,16 +119,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="" method="post">
         <h2>Recuperar Contraseña</h2>
         <label for="ID">Documento:</label>
-        <input type="text" name="ID" pattern="[0-9]{10}" maxlength="10" required>
+        <input type="text" name="id_us" pattern="[0-9]{10}" maxlength="10" required>
 
         <label for="correo">Correo:</label>
-        <input type="email" name="Correo" required>
+        <input type="email" name="correo_us" required>
 
         <label for="telefono">Teléfono:</label>
-        <input type="text" pattern="[0-9]{10}" maxlength="10" name="Telefono" required>
+        <input type="text" pattern="[0-9]{10}" maxlength="10" name="tel_us" required>
 
         <label for="codigo">Código de recuperación:</label>
-        <input type="text" pattern="[0-9]{10}" maxlength="4" name="Codigo" required>
+        <input type="number" pattern="[0-9]{10}" maxlength="4" name="Codigo" required>
 
         <button type="submit" class="btn-success">Enviar</button>
         <a href="metodos.php" class="btn-danger">Volver Atrás</a>

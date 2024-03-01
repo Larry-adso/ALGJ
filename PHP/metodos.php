@@ -19,6 +19,7 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
+            padding: 20px;
         }
 
         .card {
@@ -26,6 +27,9 @@
             border: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
         }
 
         .card:hover {
@@ -33,7 +37,7 @@
         }
 
         .card-body {
-            text-align: center;
+            padding: 20px;
         }
 
         .card-title {
@@ -45,41 +49,60 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .btn-primary:hover {
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary.btn-lg {
+            padding: 12px 24px;
+            font-size: 1.25rem;
+        }
     </style>
 </head>
 
 <body>
     <main>
-        <h1>Hola, bienvenido al sistema de recuperación de contraseña</h1>
+        <h1 class="mb-4">Hola, bienvenido al sistema de recuperación de contraseña</h1>
 
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Recuperar con contraseña anterior</h5>
-                <a href="trigger.php" class="btn btn-primary">Recuperar</a>
-
+                <a href="trigger.php" class="btn btn-primary btn-lg">Recuperar</a>
             </div>
         </div>
 
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Recuperación con validación de datos y código de seguridad</h5>
-                <a href="recuperar.php" class="btn-primary">Recuperar</a>
+                <a href="recuperar.php" class="btn btn-primary btn-lg">Recuperar</a>
             </div>
         </div>
 
-        <div class="card" style="width: 18rem;">
+        <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Recuperación por correo electrónico</h5>
-                <a href="correo.php" class="btn btn-primary">Recuperar</a>
+                <a href="correo.php" class="btn btn-primary btn-lg">Recuperar</a>
             </div>
         </div>
-        <a name="" id="" class="btn btn-primary" href="login.php" role="button">volver</a>
+        <a name="" id="" class="btn btn-primary btn-lg mb-3" href="login.php" role="button">Volver</a>
 
     </main>
 

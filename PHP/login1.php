@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "n_algj";
+$dbname = "abprueba";
 
 try {
     $conexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -13,33 +13,32 @@ try {
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Verificar si se enviaron ambos campos: correo y contraseña
-        if (isset($_POST["ID"]) && isset($_POST["password"])) {
+        if (isset($_POST["id_us"]) && isset($_POST["pass"])) {
             try {
-                // Escapar los valores para evitar inyección SQL
-                $ID = $_POST["ID"];
-                $password = $_POST["password"];
-                //$password = hash('sha512', $password);
-
+                // Escapar los valores para evitar inyección SQL    
+                $id_us = $_POST["id_us"];
+                $pass = $_POST["pass"];
+                $pass = hash('sha512', $pass);
 
                 // Consulta SQL para obtener el tipo de usuario
-                $sql = "SELECT ID_Roll FROM usuarios WHERE ID = :ID AND password = :password";
+                $sql = "SELECT id_rol FROM usuarios WHERE id_us = :id_us AND pass = :pass";
                 $stmt = $conexion->prepare($sql);
-                $stmt->bindParam(":ID", $ID);
-                $stmt->bindParam(":password", $password);
+                $stmt->bindParam(":id_us", $id_us);
+                $stmt->bindParam(":pass", $pass);
                 $stmt->execute();
 
                 if ($stmt->rowCount() > 0) {
                     // Obtener el tipo de usuario
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    $ID_Roll = $row["ID_Roll"];
+                    $id_rol = $row["id_rol"];
 
                     // Iniciar sesión y guardar el ID de usuario y el tipo de usuario en variables de sesión
                     session_start();
-                    $_SESSION["ID"] = $ID;
-                    $_SESSION["ID_Roll"] = $ID_Roll;
+                    $_SESSION["id_us"] = $id_us;
+                    $_SESSION["id_rol"] = $id_rol;
 
                     // Redireccionar según el tipo de usuario
-                    switch ($ID_Roll) {
+                    switch ($id_rol) {
                         case 1:
                             header("Location: index1.php");
                             exit();
@@ -54,12 +53,18 @@ try {
                             exit();
                         default:
                             // Manejar el caso en que el tipo de usuario no está definido
-                            echo '<script>alert("ID o contraseña incorrectos.");</script>';
+                            echo '<script>alert("ID o contraseña incorrectos.");
+                            window.location = "login.php";
+
+                            </script>';
                             exit();
                     }
                 } else {
                     // Manejar el caso en que no se encontró ningún usuario
-                    echo '<script>alert("ID o contraseña incorrectos.");</script>';
+                    echo '<script>alert("ID o contraseña incorrectos.");
+                    window.location = "login.php";
+
+                    </script>';
                     exit();
                 }
             } catch (PDOException $e) {
@@ -68,7 +73,10 @@ try {
             }
         } else {
             // Manejar el caso en que no se enviaron ambos campos
-            echo '<script>alert("No se puede iniciar sesión sin enviar datos.");</script>';
+            echo '<script>alert("No se puede iniciar sesión sin enviar datos.");
+            window.location = "login.php";
+
+            </script>';
             exit();
         }
     }

@@ -40,8 +40,8 @@
                 </div>
             </div>
             <p class="cuenta-gratis">¿Aun no tienes una cuenta?</p>
-            <input type="text" name="ID" placeholder="Documento" pattern="[0-9]{10}" maxlength="10" required>
-            <input type="password" placeholder="Contraseña" id="password" name="password" require>
+            <input type="text" name="id_us" placeholder="Documento" pattern="[0-9]{10}" maxlength="10" required>
+            <input type="password" placeholder="Contraseña" id="password" name="pass" require>
             <input class="form-check-input" onclick="togglePasswordVisibility()" name="" id="" type="checkbox" value="checkedValue" aria-label="Text for screen reader" />
 
             <script>

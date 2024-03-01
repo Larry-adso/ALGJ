@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "n_algj";
+$dbname = "abprueba";
 
 try {
     $conexion = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -15,33 +15,36 @@ try {
     echo "Error de conexión a la base de datos: " . $e->getMessage();
 }
 
-
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $ID = $_POST["ID"];
-    $Correo = $_POST["Correo"];
+    $id_us = $_POST["id_us"];
+    $correo_us = $_POST["correo_us"];
 
-    $consulta = $conexion->prepare("SELECT * FROM usuarios WHERE ID = :ID AND Correo = :Correo ");
-    $consulta->bindParam(":ID", $ID);
-    $consulta->bindParam(":Correo", $Correo);
+    $consulta = $conexion->prepare("SELECT * FROM usuarios WHERE id_us = :id_us AND correo_us = :correo_us ");
+    $consulta->bindParam(":id_us", $id_us);
+    $consulta->bindParam(":correo_us", $correo_us);
     $consulta->execute();
 
     // Verificamos si se encontró un usuario
     if ($consulta->rowCount() > 0) {
         // Si se encontró, obtenemos la contraseña y enviamos el correo
         $usuario = $consulta->fetch(PDO::FETCH_ASSOC);
-        $password = $usuario['password']; // Obtener la contraseña
+        $pass = $usuario['pass']; // Obtener la contraseña
+
+        // Crear sesión con id_us
+        $_SESSION['id_us'] = $id_us;
+
         $titulo = "Recuperacion de contraseña";
-        $msj = "Su contraseña actual es: $password. Por su seguridad, es recomendable cambiar su contraseña.";
+        $msj = "Su contraseña actual es: $pass. Por su seguridad, es recomendable cambiar su contraseña.";
         $tucorreo = "From: senatrabajos2022@gmail.com";
 
-        if (mail($Correo, $titulo, $msj, $tucorreo)) {
+        if (mail($correo_us, $titulo, $msj, $tucorreo)) {
 
             echo '<script>
-            alert("Su contraseña fue enviada a: ' . $Correo . '. Gracias por usar el sistema de recuperación.");
-            window.location = "login.php";
-          </script>';
+            alert("Su código de verificación fue enviado a: ' . $correo_us . '. Gracias por usar el sistema de recuperación.");
+            window.location = "code.php";
+            </script>';
         } else {
             echo "Error al enviar el correo.";
         }
@@ -49,6 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "No se encontró ningún usuario con esa información.";
     }
 }
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -121,10 +126,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h2>Recuperar Contraseña</h2>
             <form action="" method="post">
                 <label for="ID">Documento:</label>
-                <input type="text" name="ID" pattern="[0-9]{10}" maxlength="10" required>
+                <input type="text" name="id_us" pattern="[0-9]{10}" maxlength="10" required>
 
                 <label for="correo">Correo:</label>
-                <input type="email" name="Correo" required>
+                <input type="email" name="correo_us" required>
                 <button type="submit" class="btn-success">Enviar</button>
             </form>
         </div>

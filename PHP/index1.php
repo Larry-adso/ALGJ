@@ -20,7 +20,7 @@
             <h2>welcome</h2>
             <p> usuario : <?php
                             session_start();
-                            echo $_SESSION["ID"]; ?></p>
+                            echo $_SESSION["id_us"]; ?></p>
         </div>
 
         <h1>hola mundao 1 </h1>
