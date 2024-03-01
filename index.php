@@ -179,7 +179,6 @@ $nombreUsuario = $usuario['nombre_us'];
                             <td><?php echo $info['Correo']; ?></td>
                             <td><?php echo $info['Serial']; ?></td>
                             <td><?php echo $info['Estado']; ?></td>
-
                             <td><?php echo $info['F_inicio']; ?></td>
                             <td><?php echo $info['F_fin']; ?></td>
                             <td><?php echo $info['Tipo_Licencia']; ?></td>

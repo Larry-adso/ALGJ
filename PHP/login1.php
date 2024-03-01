@@ -40,7 +40,6 @@ try {
                     // Redireccionar según el tipo de usuario
                     switch ($id_rol) {
                         case 1:
-                            header("Location: index1.php");
                             exit();
                         case 2:
                             header("Location: index2.php");
