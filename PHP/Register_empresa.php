@@ -62,9 +62,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-$consultaLicencia = $conexion->prepare("SELECT * FROM licencia WHERE ID_estado = 3");
+$consultaLicencia = $conexion->prepare("SELECT licencia.ID, licencia.Serial, tp_licencia.Tipo FROM licencia INNER JOIN tp_licencia ON licencia.TP_licencia = tp_licencia.ID WHERE licencia.ID_estado = 3");
 $consultaLicencia->execute();
 $Tp_licencia = $consultaLicencia->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!doctype html>
@@ -76,7 +77,6 @@ $Tp_licencia = $consultaLicencia->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <link rel="stylesheet" href="css/empresa.css" />
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 </head>
@@ -87,55 +87,62 @@ $Tp_licencia = $consultaLicencia->fetchAll(PDO::FETCH_ASSOC);
         <!-- place navbar here -->
     </header>
     <main>
-        <div class="signupFrm">
-            <form action="" class="form" method="POST">
-                <h1 class="title">Registro De Empresa</h1>
+        <div class="container d-flex justify-content-center align-items-center vh-100">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="title text-center mb-4">Registro De Empresa</h1>
 
-                <div class="inputContainer">
-                    <input type="text" name="NIT" pattern="[0-9]{10}" maxlength="10" class="input" placeholder="a" required>
-                    <label for="" class="label">NIT</label>
+                    <form action="" class="form" method="POST">
+
+                        <div class="inputContainer mb-3">
+                            <input type="text" name="NIT" pattern="[0-9]{10}" maxlength="10" class="form-control" required placeholder="Ingrese el NIT">
+                            <label class="label">NIT</label>
+                        </div>
+
+                        <div class="inputContainer mb-3">
+                            <input type="text" name="Nombre" class="form-control" required placeholder="Ingrese el nombre">
+                            <label class="label">Nombre</label>
+                        </div>
+
+                        <div class="inputContainer mb-3">
+                            <label class="label">ID_Licencia</label>
+                            <select class="form-select form-select-sm input" name="ID_Licencia" id="id_licencia" required>
+                                <option value="" selected disabled>Seleccione una licencia</option>
+                                <?php foreach ($Tp_licencia as $licencia_) { ?>
+                                    <option value="<?php echo $licencia_['ID']; ?>">
+                                        <?php echo "ID: " . $licencia_['ID'] . " - Serial: " . $licencia_['Serial'] . " - Tiempo: " . $licencia_['Tipo']; ?>
+                                    </option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
+                        <div class="inputContainer mb-3">
+                            <input type="email" name="Correo" class="form-control" required placeholder="Ingrese el correo">
+                            <label class="label">Correo</label>
+                        </div>
+
+                        <div class="inputContainer mb-3">
+                            <input type="tel" name="Telefono" pattern="[0-9]{10}" maxlength="10" class="form-control" required placeholder="Ingrese el teléfono">
+                            <label class="label">Telefono</label>
+                        </div>
+
+                        <div class="inputContainer mb-3">
+                            <input type="password" name="password" class="form-control" required placeholder="Ingrese la contraseña">
+                            <label class="label">Password</label>
+                        </div>
+
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <a class="btn btn-danger" href="../index.php" role="button">Inicio</a>
+                        </div>
+
+                    </form>
                 </div>
-
-                <div class="inputContainer">
-                    <input type="text" name="Nombre" class="input" placeholder="a" require>
-                    <label for="" class="label">Nombre</label>
-                </div>
-
-                <div class="inputContainer">
-                    <label for="" class="label">ID_Licencia</label>
-                    <select class="form-select form-select-sm" name="ID_Licencia" id="id_licencia" required>
-                        <option value=""></option>
-                        <?php foreach ($Tp_licencia as $licencia_) { ?>
-                            <option value="<?php echo $licencia_['ID']; ?>">
-                                <?php echo "ID: " . $licencia_['ID'] . " - Serial: " . $licencia_['Serial']; ?>
-                            </option>
-                        <?php } ?>
-                    </select>
-
-                </div>
-
-                <div class="inputContainer">
-                    <input type="text" name="Correo" class="input" placeholder="a" require>
-                    <label for="" class="label">Correo</label>
-                </div>
-
-                <div class="inputContainer">
-                    <input type="text" name="Telefono" pattern="[0-9]{10}" maxlength="10" class="input" placeholder="a" require>
-                    <label for="" class="label">Telefono</label>
-                </div>
-
-                <div class="inputContainer">
-                    <input type="text" name="password" class="input" placeholder="a" require>
-                    <label for="" class="label">Password</label>
-                </div>
-
-                <button type="submit" class="submitBtn">aqui</button>
-                <a name="" id="" class="btn btn-danger" href="../index.php" role="button">Inicio</a>
-
-
-            </form>
+            </div>
         </div>
-
     </main>
     <footer>
         <!-- place footer here -->
