@@ -1,0 +1,7 @@
+buen dia instructor, aqui le dejamos 2 usuarios con sus respectivos roles:
+angie== rol desarrollador correo=1007428013  contraseña= angie123
+
+brian== rol admnistrador correo=1105462834 contraseña = bjulian1605
+
+la db esta en la carpeta principal, recuerda poner le nombre al crear la base de datos como esta en el archivo .sql
+(nomina_algj)
