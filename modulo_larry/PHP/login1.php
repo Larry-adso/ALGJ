@@ -49,7 +49,7 @@ try {
                             header("Location: index3.php");
                             exit();
                         case 4:
-                            header("Location:index.php");
+                            header("Location:../index.php");
                             exit();
                         default:
                             // Manejar el caso en que el tipo de usuario no está definido
