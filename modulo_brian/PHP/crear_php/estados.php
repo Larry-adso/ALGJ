@@ -12,7 +12,7 @@ if (!isset($_SESSION['id_us'])) {
 }
 
 $id_rol = $_SESSION['id_rol'];
-if ($id_rol == '5') {
+if ($id_rol == '4') {
 ?>
     <!DOCTYPE html>
     <html lang="en">
