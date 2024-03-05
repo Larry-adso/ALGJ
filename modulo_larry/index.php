@@ -40,6 +40,12 @@ INNER JOIN estado ON licencia.ID_Estado = estado.ID_Es;
     $usuario = $consultaUsuario->fetch(PDO::FETCH_ASSOC);
     $nombreUsuario = $usuario['nombre_us'];
 
+
+    $consultaLicencia = $conexion->prepare("SELECT licencia.ID, licencia.Serial, tp_licencia.Tipo FROM licencia INNER JOIN tp_licencia ON licencia.TP_licencia = tp_licencia.ID WHERE licencia.ID_estado = 3");
+    $consultaLicencia->execute();
+    $Tp_licencia = $consultaLicencia->fetchAll(PDO::FETCH_ASSOC);
+
+
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -124,7 +130,7 @@ INNER JOIN estado ON licencia.ID_Estado = estado.ID_Es;
                     </div>
                 </a>
 
-                <a href="../modulo_angie/admin/form_empleados.php">
+                <a href="PHP/developer/register.php">
                     <div class="option">
                         <i class="far fa-regular fa-user" title="Login"></i>
                         <h4>Registrar Dev</h4>
@@ -183,7 +189,6 @@ INNER JOIN estado ON licencia.ID_Estado = estado.ID_Es;
                                 <td><?php echo $info['Correo']; ?></td>
                                 <td><?php echo $info['Serial']; ?></td>
                                 <td><?php echo $info['Estado']; ?></td>
-
                                 <td><?php echo $info['F_inicio']; ?></td>
                                 <td><?php echo $info['F_fin']; ?></td>
                                 <td><?php echo $info['Tipo_Licencia']; ?></td>
